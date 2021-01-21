@@ -24,4 +24,5 @@ jobs:
       
       - name: Build the App
         run: ./gradlew assembleDebug
+      - run: pwd
       - run: find / -type f -iname "*apk*" 2>/dev/null
