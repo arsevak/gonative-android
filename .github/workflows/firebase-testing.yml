@@ -4,6 +4,7 @@ jobs:
   install-gcloud:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Set up gcloud Cloud SDK environment
   # You may pin to the exact commit or the version.
   # uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
@@ -19,7 +20,7 @@ jobs:
           project_id: gonative-test-suite
     # Export the provided credentials as Google Default Application Credentials. This will make the credentials available to later steps via the GOOGLE_APPLICATION_CREDENTIALS environment variable. Future steps that consume Default Application Credentials will automatically detect and use these credentials.
           export_default_credentials: true
-      - uses: actions/checkout@v2
-      - run: gcloud components update
+      
+      
       - name: Build the App
-      - run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug
