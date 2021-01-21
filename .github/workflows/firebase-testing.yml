@@ -1,1 +1,27 @@
-name:	
+name: firebase-testing
+on: [push]
+jobs:
+  install-gcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up gcloud Cloud SDK environment
+  # You may pin to the exact commit or the version.
+  # uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+    # Version of the gcloud SDK to install. If unspecified or set to "latest", the latest available gcloud SDK version for the target platform will be installed. Example: "290.0.1".
+          version: latest
+    # Service account email address to use for authentication. This is required for legacy .p12 keys but can be omitted for .json keys. This is usually of the format <name>@<project-id>.iam.gserviceaccount.com.
+        
+    # Service account key to use for authentication. This should be the JSON formatted private key which can be exported from the Cloud Console. The value can be raw or base64-encoded.
+          service_account_key: -----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDCDXNR1nZb9hYy\nsNK+20sgLc/vAJ8qeJqCEqrKj+FdoQ/WwFGgRDfJQkZSlJAZYPqArp6hMgLkFt8x\nYqlHet3dCl1XobGvEBl1yK8WRFD74GJ70Cr2C3rtFdTaZqUe0IyhwtB7Gu0+CXM2\nXY0bw3MXOYKHqpdZou5mcqTMgOqImDgLK9F+oSREJsb09GxbYz8c0geQ/OgjVro4\nnLfiewZQYlJJCh9/gKOQ85mAG7ktE41RkF2PyAhtMdLAZTqFEKgbj4EXduiLSoyx\nn9GYDMD/zlKlHRV7BcOVYVCVSvXhzRaAiTWTTSk9dCnmW3ouEZTH3xwKbI2IRhuW\nElE/VDFbAgMBAAECggEAF1h/6bYX+jtSc1nDmPOQB7iLPhFAlN76k7CEPKdvsRB5\n89eiWloqrftbs36tEWiR6p5XdkQqhd9cjbf1bqSRAZFIJo1M76dLsNhqfA7PAWZ+\n4q9qI7zA1rocKARWVC055hIme9EC/sYrRrydh9wNQhuIoSK8X6vS659aRUIzNSiI\n9hHSjQRLXkqTLV6PYG6UoN/4RAqcVO2kFXI3/q0PbPb5Pv6G1sh0UNhXcs+vAKwu\n36DE9riDBmjRDOVcAycBZSV0XIIDNpOSsOuHxE1rzLIperx7V3IfRdr6z9NFT6HV\nImR9+2k4CbsaPrXsOSZz+Kg++V5wFtWnxSzYT9mVvQKBgQD8Zu6fuJWMZxDCFchv\nqaNaH+YtAy8njGSG0Yu3AI27gLECLvMCZfjq6VucvPAWoE8ASKuGkiDY6G6c5YA0\nK28P9RfcOd+DxUVn4oFaDevKNKI6gItac/0DDpKbD2398xunqgyOoqlIchhHFKRP\nxIMI25YqyXKcolvmcCXHgHMOvwKBgQDE0Za0+Ak14uZW9GHo4349nOhwn8uhNRHj\n0Z587tCzPwwrfpKAGmnc8e0DdlQtom9FK9eGTmdYExxazDBvvkzRHJ4zTqr/YwvG\nY94TSAx5Eh4krdk1Qi1epnTQWTMetAiaWtukwGKRnvQNOr8bPz6KIjVgLfwmdnU4\nH+GMPUigZQKBgQC3YBkyFashLKgyOh07cyXpDo/uWAfkVc2bXZaCSHawqVjw2ydW\nsLteAFi80VAlQCblb+aeiIAw1v22I883F+9CyrChIbLQS3yXcyrDQKX0bLUIh+e2\nudoyZF4DJfylqgCHmbYx0t/mcG5PBiIyifUhdFfvkhgg0JywGP55qUruhQKBgBz8\nkSmN7i1VgX8E9vaJqqoAVetgXWkcm8nlsWXM9kev3Wb6eTEMstKrfrCn2LXv2lth\nnZhWK7o49lAZCnkqmb2ibVo5F84NFErfonFMhym9lVrpj7fcSzpJYaLdwD2hXjL9\ndqPJAbtYobDhGgw1QEyvxRSpMR2pDJJ7f4hb7jpRAoGBAI5x5oMDn7ZH/P7pWQlb\ng9n40CGMhCaHnFHThRw7NSdaNn/1lbWTTWFP+dTlPwKbtiTI0GTmQcNFgSaZ9K0R\nKkJltLDzAoT3urODTk/rNkey+Op/stlQx7vnyvuw/5zOGsAOLb+YSnztbBwJX0gW\nrkJOAqDDeGai/+srp0iielWr\n-----END PRIVATE KEY-----\n
+    # ID of the Google Cloud project. If provided, this will configure gcloud to use this project ID by default for commands. Individual commands can still override the project using the --project flag which takes precedence.
+          project_id: gonative-test-suite
+    # Export the provided credentials as Google Default Application Credentials. This will make the credentials available to later steps via the GOOGLE_APPLICATION_CREDENTIALS environment variable. Future steps that consume Default Application Credentials will automatically detect and use these credentials.
+          export_default_credentials: true
+          run: gcloud firebase test android run \
+              --type robo \
+              --app app-debug-unaligned.apk \
+              --device model=Nexus6,version=21,locale=en,orientation=portrait  \
+              --device model=Nexus7,version=19,locale=fr,orientation=landscape \
+              --timeout 90s
