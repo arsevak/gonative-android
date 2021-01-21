@@ -19,4 +19,7 @@ jobs:
           project_id: gonative-test-suite
     # Export the provided credentials as Google Default Application Credentials. This will make the credentials available to later steps via the GOOGLE_APPLICATION_CREDENTIALS environment variable. Future steps that consume Default Application Credentials will automatically detect and use these credentials.
           export_default_credentials: true
+      - uses: actions/checkout@v2
       - run: gcloud components update
+      - name: Build the App
+      - run: ./gradlew assembleDebug
