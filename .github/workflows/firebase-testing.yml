@@ -19,7 +19,7 @@ jobs:
           project_id: gonative-test-suite
     # Export the provided credentials as Google Default Application Credentials. This will make the credentials available to later steps via the GOOGLE_APPLICATION_CREDENTIALS environment variable. Future steps that consume Default Application Credentials will automatically detect and use these credentials.
           export_default_credentials: true
-          run: gcloud firebase test android run \
+      - run: gcloud firebase test android run \
               --type robo \
               --app app-debug-unaligned.apk \
               --device model=Nexus6,version=21,locale=en,orientation=portrait  \
