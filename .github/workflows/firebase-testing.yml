@@ -22,8 +22,9 @@ jobs:
           export_default_credentials: true
       
       
-      - name: Test the App
-        #run: ./gradlew assembleDebug
-        run: cd ./app/build/outputs/apk/normal/debug/
-        
-      - run: gcloud firebase test android run --type robo --app app-normal-debug.apk --device model=Nexus6,version=21,locale=en,orientation=portrait --device model=Nexus7,version=19,locale=fr,orientation=landscape --timeout 90s
+      - name: Build the App
+        run: ./gradlew assembleDebug
+      - name: Changing the directory to App's location
+        run: cd ./app/build/outputs/apk/normal/debug/  
+      - name: Testing the App
+        run: gcloud firebase test android run --type robo --app app-normal-debug.apk --device model=Nexus6,version=21,locale=en,orientation=portrait --device model=Nexus7,version=19,locale=fr,orientation=landscape --timeout 90s
